@@ -4,7 +4,7 @@ import styles from './SWCodeOutput.module.scss';
 
 interface SWCodeOutputProps {
   config: {
-    mode?: 'simple' | 'advanced';
+    precacheMode?: 'simple' | 'advanced';
     cacheVersion: string;
     cacheName: string;
     offlinePage: string;
@@ -27,7 +27,7 @@ interface SWCodeOutputProps {
 const SWCodeOutput: React.FC<SWCodeOutputProps> = ({ config }) => {
   const [copied, setCopied] = useState(false);
 
-  // ========== ПРОСТОЙ РЕЖИМ ==========
+  // ========== ПРОСТОЙ РЕЖИМ (Precache) ==========
   const generateSimpleSW = () => {
     return `// Service Worker ${config.cacheVersion}
 // Простой режим — работает из коробки
@@ -93,10 +93,9 @@ self.addEventListener('fetch', (event) => {
         }
         console.log('[SW] Из сети и кэшируем:', event.request.url);
         return fetch(event.request).then((networkResponse) => {
-          // Сохраняем в кэш для следующих раз
-          const responseClone = networkResponse.clone();
+          const clone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(event.request, clone);
           });
           return networkResponse;
         });
@@ -179,7 +178,7 @@ async function syncData() {
 console.log('[SW] Service Worker загружен, версия: ${config.cacheVersion}');`;
   };
 
-  // ========== РАСШИРЕННЫЙ РЕЖИМ ==========
+  // ========== РАСШИРЕННЫЙ РЕЖИМ (Precache) ==========
   const generateAdvancedSW = () => {
     const precacheList = JSON.stringify(config.precacheList, null, 2);
     const hasOfflinePage = config.offlinePage && config.offlinePage.trim() !== '';
@@ -407,8 +406,8 @@ console.log('[SW] Service Worker загружен, версия: ${config.cacheV
 
   // ========== ОСНОВНАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ==========
   const generateServiceWorker = () => {
-    const mode = config.mode || 'simple';
-    return mode === 'simple' ? generateSimpleSW() : generateAdvancedSW();
+    const precacheMode = config.precacheMode || 'simple';
+    return precacheMode === 'simple' ? generateSimpleSW() : generateAdvancedSW();
   };
 
   const handleCopy = async () => {

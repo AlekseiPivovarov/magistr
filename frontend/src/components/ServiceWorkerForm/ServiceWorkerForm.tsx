@@ -19,7 +19,6 @@ interface ServiceWorkerFormProps {
   loading: boolean;
 }
 
-// Правила валидации
 const validationRules = {
   cacheVersion: (value: string) => {
     if (!value.trim()) return 'Версия кэша обязательна';
@@ -41,7 +40,6 @@ const validationRules = {
   },
 };
 
-// Начальные значения
 const initialValues = {
   cacheVersion: 'v1',
   cacheName: 'pwa-cache',
@@ -59,6 +57,7 @@ const ServiceWorkerForm: React.FC<ServiceWorkerFormProps> = ({ onSubmit, loading
     validationRules
   );
 
+  // ⭐ Только для Precache!
   const [precacheMode, setPrecacheMode] = useState<'simple' | 'advanced'>('simple');
   const [precacheList, setPrecacheList] = useState<string[]>([
     '/',
@@ -128,8 +127,6 @@ const ServiceWorkerForm: React.FC<ServiceWorkerFormProps> = ({ onSubmit, loading
   };
 
   const getCheckboxValue = (value: string) => value === 'true';
-
-  // Для простого режима показываем только базовые настройки
   const isSimpleMode = precacheMode === 'simple';
 
   return (
@@ -333,7 +330,7 @@ const ServiceWorkerForm: React.FC<ServiceWorkerFormProps> = ({ onSubmit, loading
         </div>
       </div>
 
-      {/* Динамическое кэширование — на всю ширину */}
+      {/* Динамическое кэширование */}
       <div className={styles.fullWidthSection}>
         <h3>Динамическое кэширование (Runtime Caching)</h3>
 
