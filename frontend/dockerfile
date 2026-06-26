@@ -16,7 +16,7 @@ RUN npm ci --only=production && npm cache clean --force
 COPY . .
 
 # Собираем приложение
-RUN npm run build
+RUN npx webpack --mode production
 
 # ============================================
 # Этап 2: Production сервер (nginx)
@@ -25,6 +25,10 @@ FROM nginx:alpine
 
 # Копируем собранные файлы из этапа builder
 COPY --from=builder /app/dist /usr/share/nginx/html
+
+# 📌 Копируем статические файлы напрямую из папки public в корень сайта
+COPY public/manifest.json /usr/share/nginx/html/
+COPY public/service-worker.js /usr/share/nginx/html/
 
 # Копируем конфигурацию nginx для SPA
 RUN echo 'server { \
