@@ -1,0 +1,84 @@
+# Зависимости
+/node_modules
+/node_modules
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
+
+# Логи и файлы отладки
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Сборка проекта
+/dist
+/build
+/.next
+/out
+
+# Кэш и временные файлы
+.cache/
+.temp/
+.tmp/
+*.tmp
+*.temp
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Системные файлы
+Thumbs.db
+desktop.ini
+ehthumbs.db
+*.db
+
+# Файлы окружения и секреты
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# ESLint и Prettier (опционально, если не хотите хранить)
+.eslintcache
+.prettiercache
+
+# TypeScript (опционально, если используете incremental)
+*.tsbuildinfo
+
+# Webpack
+.webpack-stats.json
+
+# Отчёты о покрытии кода
+/coverage
+/.nyc_output
+
+# Документация
+/docs/_build
+/site
+
+# Освобождаем место от больших файлов
+*.log
+*.tar.gz
+*.zip
+*.7z
+*.rar
+
+# Файлы сборки Docker
+.docker-build/

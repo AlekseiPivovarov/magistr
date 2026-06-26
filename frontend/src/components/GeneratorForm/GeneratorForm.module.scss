@@ -1,0 +1,186 @@
+@import '../../styles/variables.scss';
+
+.form {
+  background: $bg-card;
+  border-radius: $radius-xl;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: $shadow-card;
+
+  h2 {
+    margin-bottom: 24px;
+    color: $text-primary;
+    font-size: 1.5rem;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 1.2rem;
+    }
+  }
+
+  h3 {
+    margin-bottom: 20px;
+    color: $accent-color;
+    font-size: 1.2rem;
+    border-bottom: 2px solid $border-light;
+    padding-bottom: 8px;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 16px;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.formSection {
+  padding: 20px;
+  background: $bg-section;
+  border-radius: $radius-lg;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 14px;
+  }
+}
+
+.formGroup {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: $text-primary;
+    font-size: 14px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid $border-light;
+    border-radius: $radius-md;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-light;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 13px;
+    }
+  }
+
+  small {
+    display: block;
+    margin-top: 5px;
+    color: $text-light;
+    font-size: 12px;
+  }
+}
+
+.colorInputGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  input[type='color'] {
+    width: 50px;
+    height: 40px;
+    padding: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    @media (max-width: $breakpoint-mobile) {
+      width: 40px;
+      height: 36px;
+    }
+  }
+
+  input[type='text'] {
+    flex: 1;
+    min-width: 0; // Предотвращает переполнение
+  }
+
+  @media (max-width: $breakpoint-small) {
+    gap: 6px;
+  }
+}
+
+.formActions {
+  margin-top: 30px;
+  text-align: center;
+
+  @media (max-width: $breakpoint-mobile) {
+    margin-top: 20px;
+  }
+}
+
+.btnPrimary {
+  background: $primary-color;
+  color: $text-white;
+  border: none;
+  padding: 14px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background: $accent-color;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 12px 24px;
+    font-size: 14px;
+    width: 100%;
+  }
+}
+
+.errorInput {
+  border-color: $error-color !important;
+}
+
+.errorMessage {
+  color: $error-color;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.required {
+  color: $error-color;
+  margin-left: 4px;
+}

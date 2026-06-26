@@ -1,0 +1,106 @@
+# Зависимости и кэш
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Файлы сборки (будут созданы внутри контейнера)
+dist/
+build/
+.next/
+out/
+
+# Конфигурационные файлы IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Файлы Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker файлы (не нужны внутри образа)
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# CI/CD и тесты
+.github/
+.gitlab/
+.husky/
+test/
+tests/
+__tests__/
+__mocks__/
+coverage/
+*.test.js
+*.test.ts
+*.test.tsx
+*.spec.js
+*.spec.ts
+*.spec.tsx
+
+# Логи
+logs/
+*.log
+
+# Документация
+README.md
+LICENSE
+CHANGELOG.md
+*.md
+docs/
+
+# Временные файлы
+tmp/
+temp/
+.cache/
+*.tmp
+
+# Системные файлы
+Thumbs.db
+desktop.ini
+
+# Файлы окружения (пароли, ключи)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Файлы ESLint и Prettier
+.eslintrc*
+.prettierrc*
+.eslintignore
+.prettierignore
+
+# TypeScript (исходники не нужны, только сборка)
+tsconfig.json
+tsconfig.*.json
+src/
+public/
+*.ts
+*.tsx
+!dist/**/*.js
+
+# Webpack конфиги (не нужны в образе)
+webpack.config.js
+webpack.config.cjs
+babel.config.js
+.babelrc
+
+# Утилиты и скрипты
+scripts/
+tools/
+bin/
+
+# Освобождаем место
+*.map
+*.tar.gz
+*.zip

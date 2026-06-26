@@ -1,0 +1,63 @@
+// ============================================
+// Цветовая схема приложения
+// ============================================
+
+// Основные цвета
+$primary-color: #333333;
+$primary-dark: #1a1a1a;
+$primary-light: #666666;
+
+// Акцентные цвета
+$accent-color: #555555;
+$accent-light: #888888;
+
+// Фоновые цвета
+$bg-body: #1a1a1a;
+$bg-card: #ffffff;
+$bg-section: #f8f9fa;
+$bg-dark: #2a2a2a;
+$bg-hover: #444444;
+
+// Цвета текста
+$text-primary: #333333;
+$text-secondary: #666666;
+$text-light: #888888;
+$text-white: #ffffff;
+$text-dark: #1a1a1a;
+
+// Цвета границ
+$border-light: #e0e0e0;
+$border-medium: #cccccc;
+$border-dark: #aaaaaa;
+
+// Цвета ошибок
+$error-color: #e53e3e;
+$error-bg: #fff5f5;
+
+// Цвета для иконки помощи
+$help-icon-bg: #e0e0e0;
+$help-icon-color: #555555;
+$help-icon-hover-bg: #aaaaaa;
+
+// Цвета чекбоксов
+$checkbox-bg: #ffffff;
+$checkbox-border: #cccccc;
+$checkbox-checked-bg: #333333;
+$checkbox-checked-border: #333333;
+$checkbox-hover-bg: #e0e0e0;
+
+// Тени
+$shadow-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+$shadow-popover: 0 10px 40px rgba(0, 0, 0, 0.2);
+$shadow-hover: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+// Скругления
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+
+// Брейкпоинты для адаптивности
+$breakpoint-tablet: 1024px;
+$breakpoint-mobile: 768px;
+$breakpoint-small: 480px;

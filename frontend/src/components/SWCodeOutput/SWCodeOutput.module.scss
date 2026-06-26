@@ -1,0 +1,237 @@
+@import '../../styles/variables.scss';
+
+.container {
+  background: white;
+  border-radius: $radius-xl;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: $shadow-card;
+
+  h2 {
+    margin-bottom: 20px;
+    color: $text-primary;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 16px;
+  }
+}
+
+.codeActions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.btnSecondary {
+  background: $accent-color;
+  color: $text-white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $primary-color;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 10px 16px;
+    font-size: 14px;
+    width: 100%;
+  }
+}
+
+.codeBlock {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 20px;
+  border-radius: $radius-md;
+  overflow-x: auto;
+  font-family: 'Courier New', 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: 500px;
+  overflow-y: auto;
+
+  code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 12px;
+    font-size: 11px;
+    max-height: 350px;
+  }
+}
+
+.infoNote {
+  margin-top: 20px;
+  padding: 20px;
+  background: $bg-section;
+  border-left: 4px solid $accent-light;
+  border-radius: $radius-md;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+
+  code {
+    background: $border-light;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+    word-break: break-all;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 14px;
+    font-size: 13px;
+
+    code {
+      font-size: 12px;
+    }
+  }
+}
+
+.instructionContainer {
+  margin-top: 20px;
+}
+
+.instructionHeader {
+  margin-bottom: 20px;
+  font-size: 16px;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 14px;
+  }
+}
+
+.instructionStep {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 15px;
+  background: $bg-section;
+  border-radius: $radius-lg;
+
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: $primary-color;
+  color: $text-white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+.stepContent {
+  flex: 1;
+
+  strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 14px;
+    }
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    color: $text-secondary;
+  }
+
+  ul {
+    margin: 0 0 0 20px;
+    color: $text-secondary;
+
+    @media (max-width: $breakpoint-mobile) {
+      margin-left: 16px;
+    }
+  }
+}
+
+.codeSnippet {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 12px;
+  border-radius: $radius-sm;
+  font-family: monospace;
+  font-size: 12px;
+  overflow-x: auto;
+  margin-top: 8px;
+  white-space: pre-wrap;
+  word-break: break-all;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 11px;
+    padding: 10px;
+  }
+}
+
+.note {
+  font-size: 12px;
+  color: $text-light;
+  margin-top: 8px;
+}
+
+.warningNote {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: $radius-md;
+
+  strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #856404;
+  }
+
+  ul {
+    margin: 0 0 0 20px;
+    color: #856404;
+
+    @media (max-width: $breakpoint-mobile) {
+      margin-left: 16px;
+    }
+  }
+}

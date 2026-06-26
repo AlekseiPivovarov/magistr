@@ -1,0 +1,85 @@
+@import './variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $bg-body;
+  min-height: 100vh;
+}
+
+code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+// Кастомные чекбоксы
+.custom-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: $checkbox-bg;
+    border: 2px solid $checkbox-border;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.2s;
+  }
+
+  &:hover input ~ .checkmark {
+    background-color: $checkbox-hover-bg;
+  }
+
+  input:checked ~ .checkmark {
+    background-color: $checkbox-checked-bg;
+    border-color: $checkbox-checked-border;
+  }
+
+  .checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+  }
+
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
