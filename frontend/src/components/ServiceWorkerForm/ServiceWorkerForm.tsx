@@ -302,7 +302,7 @@ const ServiceWorkerForm: React.FC<ServiceWorkerFormProps> = ({ onSubmit, loading
 
           {isSimpleMode ? (
             <div className={styles.simpleModeInfo}>
-              <p>🔒 Кэширует только:</p>
+              <p>Кэширует только:</p>
               <ul>
                 <li><code>/</code> — главная страница</li>
                 <li><code>/index.html</code> — HTML</li>

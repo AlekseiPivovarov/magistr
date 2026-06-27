@@ -80,21 +80,6 @@ desktop.ini
 .eslintignore
 .prettierignore
 
-# TypeScript (исходники не нужны, только сборка)
-tsconfig.json
-tsconfig.*.json
-src/
-public/
-*.ts
-*.tsx
-!dist/**/*.js
-
-# Webpack конфиги (не нужны в образе)
-webpack.config.js
-webpack.config.cjs
-babel.config.js
-.babelrc
-
 # Утилиты и скрипты
 scripts/
 tools/
