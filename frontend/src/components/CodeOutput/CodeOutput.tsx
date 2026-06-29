@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { copyToClipboard, downloadJSON } from '../../services/fileService';
 import styles from './CodeOutput.module.scss';
 
@@ -19,6 +20,10 @@ interface CodeOutputProps {
 
 const CodeOutput: React.FC<CodeOutputProps> = ({ config }) => {
   const [copied, setCopied] = useState(false);
+  const [isInstructionOpen, setIsInstructionOpen] = useState(false);
+
+  const handleOpenInstruction = () => setIsInstructionOpen(true);
+  const handleCloseInstruction = () => setIsInstructionOpen(false);
 
   // Функция для создания SVG-иконки-заглушки
   const generateIconPlaceholder = (size: number, color: string, letter: string): string => {
@@ -85,20 +90,102 @@ const CodeOutput: React.FC<CodeOutputProps> = ({ config }) => {
         <button onClick={handleDownload} className={styles.btnSecondary}>
           Скачать manifest.json
         </button>
+        <button onClick={handleOpenInstruction} className={styles.btnSecondary}>
+          Инструкция
+        </button>
       </div>
 
       <pre className={styles.codeBlock}>
         <code>{manifestString}</code>
       </pre>
 
-      <div className={styles.infoNote}>
-        <strong>Подсказка:</strong> Поместите файл &quot;manifest.json&quot; в корень вашего сайта и
-        добавьте в <code>head</code>:
-        <br />
-        <code>&lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;</code>
-        <br /><br />
-        <strong>Примечание:</strong> Иконки генерируются автоматически на основе цвета темы и первой буквы названия.
-      </div>
+      {isInstructionOpen && ReactDOM.createPortal(
+        <div className={styles.overlay} onClick={handleCloseInstruction}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.modalClose} onClick={handleCloseInstruction}>
+              ×
+            </button>
+
+            <h2 className={styles.modalTitle}>
+              Инструкция по подключению Web App Manifest
+            </h2>
+
+            <div className={styles.modalBody}>
+              <p>
+                <strong>1. Поместите файл в корень сайта</strong>
+              </p>
+              <p>
+                Скопируйте <code>manifest.json</code> в корневую папку вашего сайта
+              </p>
+
+              <p>
+                <strong>2. Добавьте ссылку на манифест в index.html</strong>
+              </p>
+              <p>
+                Добавьте этот код в <code>&lt;head&gt;</code> вашего <code>index.html</code>:
+              </p>
+              <pre className={styles.codeSnippet}>
+{`<link rel="manifest" href="/manifest.json">`}
+              </pre>
+
+              <p>
+                <strong>3. Добавьте мета-теги для лучшей совместимости</strong>
+              </p>
+              <p>
+                Рекомендуется также добавить следующие мета-теги в <code>&lt;head&gt;</code>:
+              </p>
+              <pre className={styles.codeSnippet}>
+{`<meta name="theme-color" content="#333333">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PWA App">`}
+              </pre>
+
+              <p>
+                <strong>4. Проверка в браузере</strong>
+              </p>
+              <ul>
+                <li><code>F12 → Application → Manifest</code> — должны отображаться данные манифеста</li>
+                <li><code>Application → Service Workers</code> — статус <strong>activated and running</strong></li>
+                <li><code>Network</code> — файл <code>manifest.json</code> должен загружаться со статусом 200</li>
+              </ul>
+
+              <p>
+                <strong>5. Иконки для установки PWA</strong>
+              </p>
+              <p>
+                Манифест содержит встроенные SVG-иконки-заглушки. 
+                Для публикации замените их на реальные PNG-файлы указанных размеров:
+              </p>
+              <pre className={styles.codeSnippet}>
+{`/icon-72x72.png
+/icon-96x96.png
+/icon-128x128.png
+/icon-144x144.png
+/icon-152x152.png
+/icon-192x192.png
+/icon-384x384.png
+/icon-512x512.png`}
+              </pre>
+
+              <div className={styles.warningNote}>
+                <strong>Важные замечания</strong>
+                <ul>
+                  <li>Манифест должен быть доступен по HTTPS или localhost</li>
+                  <li>Поле <code>start_url</code> должно указывать на существующую страницу</li>
+                  <li>Для установки PWA обязательны иконки размером 192x192 и 512x512 пикселей</li>
+                  <li>После изменений в манифесте очистите кэш браузера (Ctrl+Shift+Delete)</li>
+                </ul>
+              </div>
+            </div>
+
+            <button className={styles.modalBtn} onClick={handleCloseInstruction}>
+              Закрыть
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 };

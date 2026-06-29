@@ -18,6 +18,26 @@ $bg-section: #f8f9fa;
 $bg-dark: #2a2a2a;
 $bg-hover: #444444;
 
+// ============================================
+// ПРОЗРАЧНЫЕ ЦВЕТА (для полупрозрачных фонов)
+// ============================================
+
+// Коэффициенты прозрачности (можно менять)
+$opacity-form: 0.25;          // Прозрачность форм
+$opacity-form-section: 0.75;   // Прозрачность секций внутри форм
+$opacity-input: 0.6;          // Прозрачность полей ввода
+$opacity-header: 0.35;        // Прозрачность шапки
+$opacity-card: 0.85;          // Прозрачность карточек
+$opacity-popover: 0.95;       // Прозрачность модальных окон
+
+// Цвета с прозрачностью
+$bg-card-transparent: rgba(255, 255, 255, $opacity-form);
+$bg-section-transparent: rgba(255, 255, 255, $opacity-form-section);
+$bg-input-transparent: rgba(255, 255, 255, $opacity-input);
+$bg-header-transparent: rgba(0, 0, 0, $opacity-header);
+$bg-card-preview: rgba(255, 255, 255, $opacity-card);
+$bg-popover: rgba(255, 255, 255, $opacity-popover);
+
 // Цвета текста
 $text-primary: #333333;
 $text-secondary: #666666;
@@ -61,3 +81,4 @@ $radius-xl: 16px;
 $breakpoint-tablet: 1024px;
 $breakpoint-mobile: 768px;
 $breakpoint-small: 480px;
+

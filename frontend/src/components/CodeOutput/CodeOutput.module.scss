@@ -1,13 +1,25 @@
+@import '../../styles/variables.scss';
+
 .container {
-  background: white;
-  border-radius: 16px;
+  background: $bg-card-preview !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-radius: $radius-xl;
   padding: 30px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow-card;
 
   h2 {
     margin-bottom: 20px;
-    color: #333;
+    color: $text-primary;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 16px;
   }
 }
 
@@ -16,20 +28,31 @@
   gap: 15px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .btnSecondary {
-  background: #555;
-  color: white;
+  background: $accent-color;
+  color: $text-white;
   border: none;
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: $radius-sm;
   cursor: pointer;
   font-size: 14px;
   transition: background 0.2s;
 
   &:hover {
-    background: #777;
+    background: $primary-color;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 10px 16px;
+    font-size: 14px;
+    width: 100%;
   }
 }
 
@@ -37,31 +60,217 @@
   background: #1e1e1e;
   color: #d4d4d4;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: $radius-md;
   overflow-x: auto;
   font-family: 'Courier New', 'Fira Code', monospace;
   font-size: 13px;
   line-height: 1.5;
+  max-height: 500px;
+  overflow-y: auto;
 
   code {
     white-space: pre-wrap;
     word-wrap: break-word;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 12px;
+    font-size: 11px;
+    max-height: 350px;
   }
 }
 
 .infoNote {
   margin-top: 20px;
   padding: 20px;
-  background: #f5f5f5;
-  border-left: 4px solid #888;
-  border-radius: 8px;
+  background: $bg-section-transparent;
+  border-left: 4px solid $accent-light;
+  border-radius: $radius-md;
   font-size: 14px;
   line-height: 1.6;
 
   code {
-    background: #e0e0e0;
+    background: rgba(0, 0, 0, 0.08);
     padding: 2px 6px;
     border-radius: 4px;
     font-family: monospace;
+    font-size: 13px;
+    word-break: break-all;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 14px;
+    font-size: 13px;
+
+    code {
+      font-size: 12px;
+    }
+  }
+}
+
+// ============================================
+// МОДАЛЬНОЕ ОКНО ДЛЯ ИНСТРУКЦИИ
+// ============================================
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+.modal {
+  background-color: $bg-card;
+  padding: 30px;
+  border-radius: $radius-xl;
+  max-width: 550px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: $shadow-popover;
+  position: relative;
+  animation: slideIn 0.3s ease;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 20px;
+    max-width: 95%;
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $text-light;
+  padding: 4px 8px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.modalTitle {
+  margin: 0 0 16px 0;
+  color: $text-primary;
+  font-size: 1.3rem;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1.1rem;
+  }
+}
+
+.modalBody {
+  text-align: left;
+  color: $text-primary;
+
+  p {
+    margin: 4px 0 16px 0;
+    color: $text-secondary;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  ul {
+    color: $text-secondary;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 4px 0 16px 0;
+
+    li {
+      margin-bottom: 4px;
+    }
+  }
+
+  strong {
+    color: $text-primary;
+    display: block;
+    margin-top: 4px;
+  }
+
+  code {
+    background: $bg-section;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+  }
+}
+
+.codeSnippet {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 12px;
+  border-radius: $radius-sm;
+  font-family: monospace;
+  font-size: 12px;
+  overflow-x: auto;
+  margin: 8px 0 16px 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.warningNote {
+  margin-top: 16px;
+  padding: 14px;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: $radius-sm;
+
+  strong {
+    color: #856404;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  ul {
+    color: #856404;
+    margin: 0;
+  }
+}
+
+.modalBtn {
+  margin-top: 20px;
+  background: $primary-color;
+  color: $text-white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $accent-color;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

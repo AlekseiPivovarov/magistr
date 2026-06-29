@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { copyToClipboard, downloadJS } from '../../services/fileService';
 import styles from './SWCodeOutput.module.scss';
 
@@ -26,8 +27,12 @@ interface SWCodeOutputProps {
 
 const SWCodeOutput: React.FC<SWCodeOutputProps> = ({ config }) => {
   const [copied, setCopied] = useState(false);
+  const [isInstructionOpen, setIsInstructionOpen] = useState(false);
 
-  // ========== ПРОСТОЙ РЕЖИМ (Precache) ==========
+  const handleOpenInstruction = () => setIsInstructionOpen(true);
+  const handleCloseInstruction = () => setIsInstructionOpen(false);
+
+  // ========== ПРОСТОЙ РЕЖИМ ==========
   const generateSimpleSW = () => {
     return `// Service Worker ${config.cacheVersion}
 // Простой режим — работает из коробки
@@ -81,7 +86,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// ========== ПЕРЕХВАТ ЗАПРОСОВ С АВТОМАТИЧЕСКИМ КЭШИРОВАНИЕМ ==========
+// ========== ПЕРЕХВАТ ЗАПРОСОВ ==========
 self.addEventListener('fetch', (event) => {
   console.log('[SW] Запрос:', event.request.url);
   event.respondWith(
@@ -178,7 +183,7 @@ async function syncData() {
 console.log('[SW] Service Worker загружен, версия: ${config.cacheVersion}');`;
   };
 
-  // ========== РАСШИРЕННЫЙ РЕЖИМ (Precache) ==========
+  // ========== РАСШИРЕННЫЙ РЕЖИМ ==========
   const generateAdvancedSW = () => {
     const precacheList = JSON.stringify(config.precacheList, null, 2);
     const hasOfflinePage = config.offlinePage && config.offlinePage.trim() !== '';
@@ -404,7 +409,6 @@ async function syncData() {
 console.log('[SW] Service Worker загружен, версия: ${config.cacheVersion}');`;
   };
 
-  // ========== ОСНОВНАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ==========
   const generateServiceWorker = () => {
     const precacheMode = config.precacheMode || 'simple';
     return precacheMode === 'simple' ? generateSimpleSW() : generateAdvancedSW();
@@ -437,31 +441,49 @@ console.log('[SW] Service Worker загружен, версия: ${config.cacheV
         <button onClick={handleDownload} className={styles.btnSecondary}>
           Скачать service-worker.js
         </button>
+        <button onClick={handleOpenInstruction} className={styles.btnSecondary}>
+          Инструкция
+        </button>
       </div>
 
       <pre className={styles.codeBlock}>
         <code>{swCode}</code>
       </pre>
 
-      <div className={styles.infoNote}>
-        <strong>ИНСТРУКЦИЯ ПО ПОДКЛЮЧЕНИЮ SERVICE WORKER</strong>
-        <br /><br />
+      {isInstructionOpen && ReactDOM.createPortal(
+        <div className={styles.overlay} onClick={handleCloseInstruction}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.modalClose} onClick={handleCloseInstruction}>
+              ×
+            </button>
 
-        <strong>1. Поместите файл в корень сайта</strong>
-        <br />
-        Скопируйте <code>service-worker.js</code> в корневую папку вашего сайта
-        <br /><br />
+            <h2 className={styles.modalTitle}>
+              Инструкция по подключению Service Worker
+            </h2>
 
-        <strong>2. Убедитесь, что файлы из PRECACHE_URLS существуют</strong>
-        <br />
-        Все файлы из списка <code>PRECACHE_URLS</code> должны быть доступны на сервере
-        <br /><br />
+            <div className={styles.modalBody}>
+              <p>
+                <strong>1. Поместите файл в корень сайта</strong>
+              </p>
+              <p>
+                Скопируйте <code>service-worker.js</code> в корневую папку вашего сайта
+              </p>
 
-        <strong>3. Зарегистрируйте Service Worker в index.html</strong>
-        <br />
-        Добавьте этот код перед закрывающим тегом <code>&lt;/body&gt;</code>:
-        <br />
-        <code>{`<script>
+              <p>
+                <strong>2. Убедитесь, что файлы из PRECACHE_URLS существуют</strong>
+              </p>
+              <p>
+                Все файлы из списка <code>PRECACHE_URLS</code> должны быть доступны на сервере
+              </p>
+
+              <p>
+                <strong>3. Зарегистрируйте Service Worker в index.html</strong>
+              </p>
+              <p>
+                Добавьте этот код перед закрывающим тегом <code>&lt;/body&gt;</code>:
+              </p>
+              <pre className={styles.codeSnippet}>
+{`<script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
@@ -469,28 +491,36 @@ console.log('[SW] Service Worker загружен, версия: ${config.cacheV
         .catch(err => console.log('Ошибка SW:', err));
     });
   }
-</script>`}</code>
-        <br /><br />
+</script>`}
+              </pre>
 
-        <strong>4. Проверка в браузере</strong>
-        <br />
-        • <code>F12 → Application → Service Workers</code> — статус <strong>activated and running</strong>
-        <br />
-        • <code>Application → Cache Storage</code> — есть файлы в кэше
-        <br />
-        • Включите <strong>Offline</strong> и обновите страницу — должна работать
-        <br /><br />
+              <p>
+                <strong>4. Проверка в браузере</strong>
+              </p>
+              <ul>
+                <li><code>F12 → Application → Service Workers</code> — статус <strong>activated and running</strong></li>
+                <li><code>Application → Cache Storage</code> — есть файлы в кэше</li>
+                <li>Включите <strong>Offline</strong> и обновите страницу — должна работать</li>
+              </ul>
 
-        <strong>Важные замечания</strong>
-        <br />
-        • Service Worker работает только на <strong>HTTPS</strong> или <strong>localhost</strong>
-        <br />
-        • После изменений в SW нужно обновить страницу <strong>дважды</strong>
-        <br />
-        • Все файлы кэшируются автоматически при первом запросе
-        <br />
-        • Если файл не закэшировался — просто откройте страницу с интернетом один раз
-      </div>
+              <div className={styles.warningNote}>
+                <strong>Важные замечания</strong>
+                <ul>
+                  <li>Service Worker работает только на <strong>HTTPS</strong> или <strong>localhost</strong></li>
+                  <li>После изменений в SW нужно обновить страницу <strong>дважды</strong></li>
+                  <li>Все файлы кэшируются автоматически при первом запросе</li>
+                  <li>Если файл не закэшировался — просто откройте страницу с интернетом один раз</li>
+                </ul>
+              </div>
+            </div>
+
+            <button className={styles.modalBtn} onClick={handleCloseInstruction}>
+              Закрыть
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 };

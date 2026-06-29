@@ -1,18 +1,22 @@
+@import '../../styles/variables.scss';
+
 .container {
-  background: white;
-  border-radius: 16px;
+  background: $bg-card-preview !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-radius: $radius-xl;
   padding: 30px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow-card;
 
   h2 {
     margin-bottom: 20px;
-    color: #333;
+    color: $text-primary;
   }
 }
 
 .previewCard {
-  border-radius: 12px;
+  border-radius: $radius-lg;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -45,7 +49,7 @@
   gap: 15px;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 
   .infoItem {
     font-size: 14px;

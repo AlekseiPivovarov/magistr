@@ -132,7 +132,6 @@ const ServiceWorkerForm: React.FC<ServiceWorkerFormProps> = ({ onSubmit, loading
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <h2>Service Worker Configuration</h2>
-      <p>Настройте поведение Service Worker для вашего PWA приложения</p>
 
       <div className={styles.formGrid}>
         {/* Колонка 1: Основные настройки */}

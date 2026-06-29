@@ -1,7 +1,9 @@
 @import '../../styles/variables.scss';
 
 .container {
-  background: white;
+  background: $bg-card-preview !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
   border-radius: $radius-xl;
   padding: 30px;
   margin-bottom: 20px;
@@ -78,114 +80,104 @@
   }
 }
 
-.infoNote {
-  margin-top: 20px;
-  padding: 20px;
-  background: $bg-section;
-  border-left: 4px solid $accent-light;
-  border-radius: $radius-md;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-x: auto;
+// ============================================
+// МОДАЛЬНОЕ ОКНО С ИНСТРУКЦИЕЙ
+// ============================================
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+.modal {
+  background-color: $bg-card;
+  padding: 30px;
+  border-radius: $radius-xl;
+  max-width: 550px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: $shadow-popover;
+  position: relative;
+  animation: slideIn 0.3s ease;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 20px;
+    max-width: 95%;
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $text-light;
+  padding: 4px 8px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.modalTitle {
+  margin: 0 0 16px 0;
+  color: $text-primary;
+  font-size: 1.3rem;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1.1rem;
+  }
+}
+
+.modalBody {
+  text-align: left;
+  color: $text-primary;
+
+  p {
+    margin: 4px 0 16px 0;
+    color: $text-secondary;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  ul {
+    color: $text-secondary;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 4px 0 16px 0;
+
+    li {
+      margin-bottom: 4px;
+    }
+  }
+
+  strong {
+    color: $text-primary;
+    display: block;
+    margin-top: 4px;
+  }
 
   code {
-    background: $border-light;
+    background: $bg-section;
     padding: 2px 6px;
     border-radius: 4px;
     font-family: monospace;
     font-size: 13px;
-    word-break: break-all;
-  }
-
-  strong {
-    display: block;
-    margin-bottom: 12px;
-    font-size: 15px;
-  }
-
-  @media (max-width: $breakpoint-mobile) {
-    padding: 14px;
-    font-size: 13px;
-
-    code {
-      font-size: 12px;
-    }
-  }
-}
-
-.instructionContainer {
-  margin-top: 20px;
-}
-
-.instructionHeader {
-  margin-bottom: 20px;
-  font-size: 16px;
-
-  @media (max-width: $breakpoint-mobile) {
-    font-size: 14px;
-  }
-}
-
-.instructionStep {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-  padding: 15px;
-  background: $bg-section;
-  border-radius: $radius-lg;
-
-  @media (max-width: $breakpoint-mobile) {
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px;
-  }
-}
-
-.stepNumber {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  background: $primary-color;
-  color: $text-white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-
-  @media (max-width: $breakpoint-mobile) {
-    width: 24px;
-    height: 24px;
-    font-size: 12px;
-  }
-}
-
-.stepContent {
-  flex: 1;
-
-  strong {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 15px;
-
-    @media (max-width: $breakpoint-mobile) {
-      font-size: 14px;
-    }
-  }
-
-  p {
-    margin: 0 0 8px 0;
-    color: $text-secondary;
-  }
-
-  ul {
-    margin: 0 0 0 20px;
-    color: $text-secondary;
-
-    @media (max-width: $breakpoint-mobile) {
-      margin-left: 16px;
-    }
   }
 }
 
@@ -197,41 +189,54 @@
   font-family: monospace;
   font-size: 12px;
   overflow-x: auto;
-  margin-top: 8px;
+  margin: 8px 0 16px 0;
   white-space: pre-wrap;
   word-break: break-all;
-
-  @media (max-width: $breakpoint-mobile) {
-    font-size: 11px;
-    padding: 10px;
-  }
-}
-
-.note {
-  font-size: 12px;
-  color: $text-light;
-  margin-top: 8px;
 }
 
 .warningNote {
-  margin-top: 20px;
-  padding: 15px;
+  margin-top: 16px;
+  padding: 14px;
   background: #fff3cd;
   border-left: 4px solid #ffc107;
-  border-radius: $radius-md;
+  border-radius: $radius-sm;
 
   strong {
-    display: block;
-    margin-bottom: 8px;
     color: #856404;
+    display: block;
+    margin-bottom: 4px;
   }
 
   ul {
-    margin: 0 0 0 20px;
     color: #856404;
+    margin: 0;
+  }
+}
 
-    @media (max-width: $breakpoint-mobile) {
-      margin-left: 16px;
-    }
+.modalBtn {
+  margin-top: 20px;
+  background: $primary-color;
+  color: $text-white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $accent-color;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

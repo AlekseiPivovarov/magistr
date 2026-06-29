@@ -1,11 +1,14 @@
 @import '../../styles/variables.scss';
 
 .form {
-  background: $bg-card;
+  background: $bg-card-transparent !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
   border-radius: $radius-xl;
   padding: 30px;
   margin-bottom: 20px;
   box-shadow: $shadow-card;
+  background-color: $bg-card-transparent !important;
 
   h2 {
     margin-bottom: 24px;
@@ -21,7 +24,7 @@
     margin-bottom: 20px;
     color: $accent-color;
     font-size: 1.2rem;
-    border-bottom: 2px solid $border-light;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 8px;
 
     @media (max-width: $breakpoint-mobile) {
@@ -47,7 +50,7 @@
 
 .formSection {
   padding: 20px;
-  background: $bg-section;
+  background: $bg-section-transparent !important;
   border-radius: $radius-lg;
 
   @media (max-width: $breakpoint-mobile) {
@@ -71,15 +74,17 @@
   textarea {
     width: 100%;
     padding: 10px 12px;
-    border: 2px solid $border-light;
+    border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: $radius-md;
     font-size: 14px;
     font-family: inherit;
     transition: all 0.3s;
+    background: $bg-input-transparent;
 
     &:focus {
       outline: none;
       border-color: $accent-light;
+      background: rgba(255, 255, 255, 0.9);
     }
 
     @media (max-width: $breakpoint-mobile) {
@@ -90,10 +95,6 @@
 
   textarea {
     resize: vertical;
-
-    @media (max-width: $breakpoint-mobile) {
-      font-size: 13px;
-    }
   }
 
   small {
@@ -115,20 +116,14 @@
     padding: 2px;
     cursor: pointer;
     flex-shrink: 0;
-
-    @media (max-width: $breakpoint-mobile) {
-      width: 40px;
-      height: 36px;
-    }
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: $radius-md;
+    background: $bg-input-transparent;
   }
 
   input[type='text'] {
     flex: 1;
-    min-width: 0; // Предотвращает переполнение
-  }
-
-  @media (max-width: $breakpoint-small) {
-    gap: 6px;
+    min-width: 0;
   }
 }
 

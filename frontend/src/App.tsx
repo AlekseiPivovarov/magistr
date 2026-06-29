@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ParallaxBackground from './components/ParallaxBackground/ParallaxBackground';
 import GeneratorForm from './components/GeneratorForm/GeneratorForm';
 import ServiceWorkerForm from './components/ServiceWorkerForm/ServiceWorkerForm';
 import PreviewPanel from './components/PreviewPanel/PreviewPanel';
@@ -46,9 +47,11 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.app}>
+      <ParallaxBackground />
+      
       <header className={styles.appHeader}>
         <h1>PWA Generator</h1>
-        <p>Создайте Web App Manifest и Service Worker для вашего PWA</p>
+        <p>Создайте Web App Manifest и Service Worker для вашего Progressive Web App</p>
       </header>
 
       <div className={styles.tabsContainer}>
